@@ -3,7 +3,7 @@ module github.com/open-telemetry/opentelemetry-collector-contrib/extension/obser
 go 1.14
 
 require (
-	github.com/open-telemetry/opentelemetry-collector-contrib/extension/observer v0.0.0-00010101000000-000000000000
+	github.com/open-telemetry/opentelemetry-collector-contrib/extension/observer v0.0.0
 	github.com/shirou/gopsutil v2.20.9+incompatible
 	github.com/stretchr/testify v1.6.1
 	go.opentelemetry.io/collector v0.13.1-0.20201020175630-99cb5b244aad

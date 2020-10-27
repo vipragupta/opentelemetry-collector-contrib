@@ -3,7 +3,7 @@ module github.com/open-telemetry/opentelemetry-collector-contrib/receiver/jmxmet
 go 1.14
 
 require (
-	github.com/Sirupsen/logrus v0.0.0-00010101000000-000000000000 // indirect
+	github.com/Sirupsen/logrus v0.0.0 // indirect
 	github.com/containerd/containerd v1.4.0 // indirect
 	github.com/davecgh/go-spew v1.1.1
 	github.com/prometheus/common v0.14.0
