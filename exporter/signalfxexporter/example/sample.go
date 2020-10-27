@@ -21,8 +21,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/signalfxexporter/push"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/signalfxexporter"
+	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/signalfxexporter/push"
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/component/componenttest"
 	"go.opentelemetry.io/collector/consumer/pdata"
@@ -122,8 +122,9 @@ func main() {
 	var m sync.Mutex
 	var w sync.WaitGroup
 
-	for i := 1; i < 20000; i++ {
-		dimensions := map[string]string{"az": azValues[rand.Int63n(int64(len(azValues)))],
+	for i := 1; i < 10; i++ {
+		dimensions := map[string]string{
+			"az": azValues[rand.Int63n(int64(len(azValues)))],
 			"request_type":  requestTypesValues[0],
 			"sub_system": subsystemValues[0],
 			"status": statusValues[0],

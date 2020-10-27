@@ -21,6 +21,7 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"net/url"
 	"path"
@@ -126,6 +127,7 @@ func (s *sfxDPClient) pushMetricsDataForToken(ctx context.Context,
 
 	body, compressed, err := s.encodeBody(sfxDataPoints)
 	if err != nil {
+		log.Printf("error encoding the body, %s", err)
 		return numTimeseries, consumererror.Permanent(err)
 	}
 
@@ -133,11 +135,14 @@ func (s *sfxDPClient) pushMetricsDataForToken(ctx context.Context,
 	if !strings.HasSuffix(datapointURL.Path, "v2/datapoint") {
 		datapointURL.Path = path.Join(datapointURL.Path, "v2/datapoint")
 	}
+	log.Printf("getting the nee request with context")
 	req, err := http.NewRequestWithContext(ctx, "POST", datapointURL.String(), body)
 	if err != nil {
+		log.Printf("error:F %s", err)
 		return numTimeseries, consumererror.Permanent(err)
 	}
 
+	log.Printf("setting the request headers")
 	for k, v := range s.headers {
 		req.Header.Set(k, v)
 	}
@@ -153,8 +158,11 @@ func (s *sfxDPClient) pushMetricsDataForToken(ctx context.Context,
 
 	// TODO: Mark errors as partial errors wherever applicable when, partial
 	// error for metrics is available.
+
 	resp, err := s.client.Do(req)
 	if err != nil {
+		log.Printf("request: %+v", req)
+		log.Printf("error in client.do, %s", err)
 		return numTimeseries, err
 	}
 
